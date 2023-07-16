@@ -4,6 +4,7 @@
   //Components
   import TheLoader from "@/components/TheLoader.vue";
   import TheErrorAlert from "@/components/TheErrorAlert.vue";
+  import TheHistogram from "@/components/TheHistogram.vue";
 
   import GeneralLayout from "@/layouts/GeneralLayout.vue";
   import {useIntegerFetch} from "@/composables/useIntegerFetch";
@@ -33,10 +34,13 @@ const histogramValues = ref([]);
 
 <template>
   <GeneralLayout>
-    <div>
+    <section>
       <h2 class="text-center text-3xl py-5">Histogram </h2>
       <TheLoader v-if="isLoading" />
       <TheErrorAlert v-if="isError" :error="error"/>
-    </div>
+    </section>
+    <section>
+      <TheHistogram :data="histogramValues" />
+    </section>
   </GeneralLayout>
 </template>

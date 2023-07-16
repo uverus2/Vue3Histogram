@@ -1,0 +1,29 @@
+.bar{
+  .primary{
+    background: $primary;
+  }
+
+  .secondary{
+    background: $secondary;
+  }
+
+  .third{
+    background: $third;
+  }
+}
+
+.y-axis{
+  @media only screen and (max-width: 250px) {
+    display: none;
+  }
+  @media only screen and (min-width: 600px) {
+    border-right: solid 5px $basic;
+    border-bottom: solid 5px $basic;
+  }
+
+  :last-child{
+    margin-bottom: 24px;
+    align-self: end;
+  }
+}
+

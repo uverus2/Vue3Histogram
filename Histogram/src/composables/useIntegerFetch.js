@@ -10,7 +10,7 @@ export function useIntegerFetch(){
         isLoading.value = true;
         try{
             const request = inject('request'),
-                responseData = await request('integers/?num=200&min=1&max=10&col=1&base=10&format=plain&rnd=new');
+                responseData = await request('integers/?num=200&min=1&max=12&col=1&base=10&format=plain&rnd=new');
 
             response.value = responseData.split('\n');
         }catch(e){

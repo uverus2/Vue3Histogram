@@ -5,7 +5,7 @@ import TheHeader from "@/components/TheHeader.vue";
 <template>
   <main class="container-fluid">
     <TheHeader/>
-    <section class="p-6 red">
+    <section class="p-0 sm:p-3 md:p-6 red">
       <slot/>
     </section>
   </main>
