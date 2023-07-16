@@ -70,9 +70,11 @@ provide('apiOptions', options);
 <template>
   <GeneralLayout>
     <section>
-      <div class="flex justify-between align-middle my-4">
+      <div class="flex flex-col  align-middle my-4 sm:justify-between sm:flex-row">
         <h2 class="text-center text-3xl py-5"> Histogram </h2>
-        <button class="rounded-md w-32 h-12 p-3 bg-primary hover:bg-secondary text-white" @click="refreshResults">Refresh</button>
+        <div class="w-full text-center sm:text-right">
+          <button class="rounded-md w-32 h-12 p-3 bg-primary hover:bg-secondary text-white " @click="refreshResults">Refresh</button>
+        </div>
       </div>
       <TheLoader v-if="isLoading"/>
       <TheErrorAlert v-if="isError" :error="error"/>
