@@ -1,6 +1,9 @@
 <script setup>
   import { watch, ref } from 'vue'
 
+  //Components
+  import TheLoader from "@/components/TheLoader.vue";
+
   import GeneralLayout from "@/layouts/GeneralLayout.vue";
   import {useIntegerFetch} from "@/composables/useIntegerFetch";
 
@@ -29,7 +32,8 @@ const histogramValues = ref([]);
 <template>
   <GeneralLayout>
     <div>
-      <h2>Histogram {{isLoading}}</h2>
+      <h2 class="text-center text-3xl py-5">Histogram </h2>
+      <TheLoader v-if="isLoading" />
     </div>
   </GeneralLayout>
 </template>
