@@ -1,5 +1,5 @@
 <script setup>
-  import { watch } from 'vue'
+  import { watch, ref } from 'vue'
 
   import GeneralLayout from "@/layouts/GeneralLayout.vue";
   import {useIntegerFetch} from "@/composables/useIntegerFetch";
@@ -7,8 +7,15 @@
   const {response, error, execute, isLoading} = useIntegerFetch();
   execute({});
 
- watch(response, async (newVal) => {
-   console.log("value", newVal)
+const histogramValues = ref([]);
+ watch(response, async (results) => {
+   histogramValues.value = results.reduce((accumulator, number) => {
+     if(number){
+       accumulator[number] = (accumulator[number] || 0) + 1;
+     }
+
+     return accumulator;
+   }, {});
  });
 
   watch(error, async (newVal) => {

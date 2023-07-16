@@ -14,7 +14,6 @@ export function useIntegerFetch(){
 
             response.value = responseData.split('\n');
         }catch(e){
-            console.log(e);
             error.value = e;
         }finally {
             isLoading.value = false;
