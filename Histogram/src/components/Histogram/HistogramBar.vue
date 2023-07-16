@@ -1,5 +1,5 @@
 <script setup>
-import {ref, provide} from 'vue'
+import {inject, provide, ref} from 'vue'
 
 //Components
 import TheHistogramLabel from "@/components/Histogram/TheHistogramLabel.vue";
@@ -19,9 +19,14 @@ const props = defineProps({
   },
 });
 
-const dynamicHeight = `height: ${props.column}rem`;
+function scaleValue(value, numColumns, largestValue) {
+  return (value / largestValue) * numColumns;
+}
 
-const isLabelShown = ref(false);
+const apiOptions = inject('apiOptions'),
+      largestNumber = inject('largestEntry'),
+      dynamicHeight = `height: ${scaleValue(props.column, apiOptions?.max || 12, largestNumber)}rem`,
+      isLabelShown = ref(false);
 
 function toggleLabel() {
   isLabelShown.value = !isLabelShown.value;
