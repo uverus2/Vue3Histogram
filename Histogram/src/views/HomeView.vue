@@ -3,6 +3,7 @@
 
   //Components
   import TheLoader from "@/components/TheLoader.vue";
+  import TheErrorAlert from "@/components/TheErrorAlert.vue";
 
   import GeneralLayout from "@/layouts/GeneralLayout.vue";
   import {useIntegerFetch} from "@/composables/useIntegerFetch";
@@ -21,9 +22,10 @@ const histogramValues = ref([]);
    }, {});
  });
 
+ const isError = ref(false);
   watch(error, async (newVal) => {
     if(newVal){
-      console.log('error', newVal);
+      isError.value = true;
     }
   })
 
@@ -34,6 +36,7 @@ const histogramValues = ref([]);
     <div>
       <h2 class="text-center text-3xl py-5">Histogram </h2>
       <TheLoader v-if="isLoading" />
+      <TheErrorAlert v-if="isError" :error="error"/>
     </div>
   </GeneralLayout>
 </template>
