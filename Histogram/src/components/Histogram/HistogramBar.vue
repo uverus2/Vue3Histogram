@@ -2,7 +2,7 @@
 import {ref, provide} from 'vue'
 
 //Components
-import TheHistogramLabel from "@/components/TheHistogramLabel.vue";
+import TheHistogramLabel from "@/components/Histogram/TheHistogramLabel.vue";
 
 const props = defineProps({
   column: {
@@ -41,7 +41,7 @@ provide('column', props.column);
          @mouseover="toggleLabel"
     >
     </div>
-    <div class="pt-2 hidden xs-450:flex">
+    <div class="pt-2 hidden xs-450:block">
       <span>{{ columnIndex }}</span>
     </div>
   </li>

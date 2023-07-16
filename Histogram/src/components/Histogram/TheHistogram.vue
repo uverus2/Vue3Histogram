@@ -2,8 +2,8 @@
 import { computed } from 'vue'
 
 //Components
-import HistogramBar from "@/components/HistogramBar.vue";
-import YAxis from "@/components/YAxis.vue";
+import HistogramBar from "@/components/Histogram/HistogramBar.vue";
+import YAxis from "@/components/Histogram/YAxis.vue";
 
 const props = defineProps({
   data: {

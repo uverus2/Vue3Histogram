@@ -4,7 +4,7 @@
   //Components
   import TheLoader from "@/components/TheLoader.vue";
   import TheErrorAlert from "@/components/TheErrorAlert.vue";
-  import TheHistogram from "@/components/TheHistogram.vue";
+  import TheHistogram from "@/components/Histogram/TheHistogram.vue";
 
   import GeneralLayout from "@/layouts/GeneralLayout.vue";
   import {useIntegerFetch} from "@/composables/useIntegerFetch";
