@@ -1,5 +1,5 @@
 <script setup>
-import {computed, provide, ref, inject} from 'vue'
+import {computed, provide, ref, inject, watch} from 'vue'
 
 //Components
 import HistogramBar from "@/components/Histogram/HistogramBar.vue";
@@ -12,12 +12,18 @@ const props = defineProps({
   }
 });
 
-const largestEntry = ref(200),
-      valuesArray = Object.values(props.data);
+const largestEntry = ref(200);
+const findLargestValue = (data) => {
+  const valuesArray = Object.values(data)
+  largestEntry.value = Math.max(...valuesArray);
+  console.log(largestEntry.value);
+}
 
-largestEntry.value = Math.max(...valuesArray);
+findLargestValue(props.data);
 
- provide('largestEntry', largestEntry.value);
+watch(() => props.data, newData => {
+  findLargestValue(newData);
+});
 
 function getColour(index){
   const colourOptions = ['primary', 'secondary', 'third'],
@@ -31,7 +37,7 @@ const calculatePercValue = (length, percent) => {
 }
 const calculateYAxis = computed(() => {
   const axisValues = [0],
-        allowedPercentValues = [0.25, 0.50, 0.75];
+        allowedPercentValues = [0.25, 0.50, 0.80];
 
   allowedPercentValues.forEach(percent => {
     const getPercentageValue = calculatePercValue(largestEntry.value, percent);
@@ -41,8 +47,11 @@ const calculateYAxis = computed(() => {
   return axisValues.sort((a, b) => b - a);
 });
 
-const apiOptions = inject('apiOptions')
-const columnStyle = `grid-template-columns: repeat(${apiOptions?.max || 12}, minmax(0, 1fr))`;
+const apiOptions = inject('apiOptions');
+
+const columnStyle = computed(() => {
+  return `grid-template-columns: repeat(${apiOptions?.max || 12}, minmax(0, 1fr))`;
+});
 
 </script>
 <template>
@@ -54,7 +63,7 @@ const columnStyle = `grid-template-columns: repeat(${apiOptions?.max || 12}, min
       <div class="col-span-12 xs-250:col-span-11">
         <div>
           <ul class="grid gap-1" :style="columnStyle">
-           <HistogramBar v-for="(bar, index) in data" :columnIndex="index" :colour="getColour(index)" :column="bar" :key="index"/>
+           <HistogramBar v-for="(bar, index) in data" :columnIndex="index" :largestEntry="largestEntry" :colour="getColour(index)" :column="bar" :key="index"/>
           </ul>
         </div>
       </div>

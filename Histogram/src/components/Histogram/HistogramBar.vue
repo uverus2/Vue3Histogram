@@ -1,5 +1,5 @@
 <script setup>
-import {inject, provide, ref} from 'vue'
+import {inject, provide, ref, computed} from 'vue'
 
 //Components
 import TheHistogramLabel from "@/components/Histogram/TheHistogramLabel.vue";
@@ -17,6 +17,10 @@ const props = defineProps({
     type: String,
     default: "primary"
   },
+  largestEntry: {
+    type: Number,
+    default: 200
+  }
 });
 
 function scaleValue(value, numColumns, largestValue) {
@@ -24,8 +28,7 @@ function scaleValue(value, numColumns, largestValue) {
 }
 
 const apiOptions = inject('apiOptions'),
-      largestNumber = inject('largestEntry'),
-      dynamicHeight = `height: ${scaleValue(props.column, apiOptions?.max || 12, largestNumber)}rem`,
+      dynamicHeight = computed(() => `height: ${scaleValue(props.column, apiOptions?.max || 12, props.largestEntry)}rem`),
       isLabelShown = ref(false);
 
 function toggleLabel() {
@@ -33,7 +36,7 @@ function toggleLabel() {
 }
 
 //Not best practice for 1 level of drilling, I am just trying it out.
-provide('column', props.column);
+provide('column', computed(() => props.column));
 
 </script>
 <template>

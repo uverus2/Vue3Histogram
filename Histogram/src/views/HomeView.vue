@@ -1,20 +1,26 @@
 <script setup>
-import {computed, provide, ref, watch} from 'vue'
+import {computed, provide, ref, watch, reactive} from 'vue'
 
 //Components
 import TheLoader from "@/components/TheLoader.vue";
 import TheErrorAlert from "@/components/TheErrorAlert.vue";
 import TheHistogram from "@/components/Histogram/TheHistogram.vue";
+import TheForm from "@/components/HistogramForm/TheForm.vue";
 
 import GeneralLayout from "@/layouts/GeneralLayout.vue";
 import {useIntegerFetch} from "@/composables/useIntegerFetch";
 
+
 const {response, error, execute, isLoading} = useIntegerFetch(),
-      options = {num: 200, max: 12};
+      options = reactive({num: 200, max: 12});
 
 execute(options);
 
 function refreshResults() {
+  options.max = 12;
+  options.min = 1;
+  options.num = 200;
+
   execute(options);
 }
 
@@ -45,9 +51,20 @@ watch(error, async (newVal) => {
 
 const checkIfResults = computed(() => {
   return Object.keys(histogramValues.value).length;
-})
+});
+
+const submitForm = (formData) => {
+  const {max, min, num} = formData;
+
+  options.max = max;
+  options.min = min;
+  options.num = num;
+
+  execute(options);
+}
 
 provide('apiOptions', options);
+
 </script>
 
 <template>
@@ -62,6 +79,11 @@ provide('apiOptions', options);
     </section>
     <section>
       <TheHistogram v-if="checkIfResults" :data="histogramValues"/>
+    </section>
+    <section>
+      <div class="container mx-auto my-4 py-4">
+        <TheForm @submitForm="submitForm" />
+      </div>
     </section>
   </GeneralLayout>
 </template>

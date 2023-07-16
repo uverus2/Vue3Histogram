@@ -20,7 +20,7 @@ export function useIntegerFetch(){
         isLoading.value = true;
 
         const apiOptions = new Options(options),
-              url = `integers/?num=${apiOptions.num}&min=${apiOptions.min}&max=${apiOptions.max}&col=1&base=${apiOptions.base}&format=plain&rnd=new`;
+              url = `integers/?num=${apiOptions.num}&min=${apiOptions.min}&max=${apiOptions.max}&col=1&base=10&format=plain&rnd=new`;
 
         try{
             const responseData = await request(url);
