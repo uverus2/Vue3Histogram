@@ -1,5 +1,6 @@
 <script setup>
-import { inject } from 'vue'
+import {inject} from 'vue'
+
 const column = inject('column');
 </script>
 <template>

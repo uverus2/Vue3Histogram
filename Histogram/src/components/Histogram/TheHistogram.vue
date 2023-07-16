@@ -1,5 +1,5 @@
 <script setup>
-import {computed, provide, ref, inject, watch} from 'vue'
+import {computed, inject, ref, watch} from 'vue'
 
 //Components
 import HistogramBar from "@/components/Histogram/HistogramBar.vue";
@@ -13,10 +13,10 @@ const props = defineProps({
 });
 
 const largestEntry = ref(200);
+
 const findLargestValue = (data) => {
   const valuesArray = Object.values(data)
   largestEntry.value = Math.max(...valuesArray);
-  console.log(largestEntry.value);
 }
 
 findLargestValue(props.data);
@@ -25,9 +25,9 @@ watch(() => props.data, newData => {
   findLargestValue(newData);
 });
 
-function getColour(index){
+function getColour(index) {
   const colourOptions = ['primary', 'secondary', 'third'],
-        colourIndex = index % colourOptions.length;
+      colourIndex = index % colourOptions.length;
 
   return colourOptions[colourIndex];
 }
@@ -37,7 +37,7 @@ const calculatePercValue = (length, percent) => {
 }
 const calculateYAxis = computed(() => {
   const axisValues = [0],
-        allowedPercentValues = [0.25, 0.50, 0.80];
+      allowedPercentValues = [0.25, 0.50, 0.80];
 
   allowedPercentValues.forEach(percent => {
     const getPercentageValue = calculatePercValue(largestEntry.value, percent);
@@ -62,8 +62,9 @@ const columnStyle = computed(() => {
       </div>
       <div class="col-span-12 xs-250:col-span-11">
         <div>
-          <ul class="grid gap-1" :style="columnStyle">
-           <HistogramBar v-for="(bar, index) in data" :columnIndex="index" :largestEntry="largestEntry" :colour="getColour(index)" :column="bar" :key="index"/>
+          <ul :style="columnStyle" class="grid gap-1">
+            <HistogramBar v-for="(bar, index) in data" :key="index" :colour="getColour(index)"
+                          :column="bar" :columnIndex="index" :largestEntry="largestEntry"/>
           </ul>
         </div>
       </div>

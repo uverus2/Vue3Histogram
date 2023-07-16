@@ -1,5 +1,5 @@
 <script setup>
-import {inject, provide, ref, computed} from 'vue'
+import {computed, inject, provide, ref} from 'vue'
 
 //Components
 import TheHistogramLabel from "@/components/Histogram/TheHistogramLabel.vue";
@@ -28,8 +28,8 @@ function scaleValue(value, numColumns, largestValue) {
 }
 
 const apiOptions = inject('apiOptions'),
-      dynamicHeight = computed(() => `height: ${scaleValue(props.column, apiOptions?.max || 12, props.largestEntry)}rem`),
-      isLabelShown = ref(false);
+    dynamicHeight = computed(() => `height: ${scaleValue(props.column, apiOptions?.max || 12, props.largestEntry)}rem`),
+    isLabelShown = ref(false);
 
 function toggleLabel() {
   isLabelShown.value = !isLabelShown.value;
@@ -42,9 +42,9 @@ provide('column', computed(() => props.column));
 <template>
   <li class="self-end text-center bar">
     <TheHistogramLabel v-if="isLabelShown"/>
-    <div :style="dynamicHeight"
+    <div :class="colour"
+         :style="dynamicHeight"
          class="col-span-1 rounded-t-lg text-center flex flex-col justify-center hover:bg-basic hover:animate-pulse"
-         :class="colour"
          @mouseleave="toggleLabel"
          @mouseover="toggleLabel"
     >

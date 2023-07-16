@@ -1,5 +1,5 @@
 <script setup>
-import {computed, provide, ref, watch, reactive} from 'vue'
+import {computed, provide, reactive, ref, watch} from 'vue'
 
 //Components
 import TheLoader from "@/components/TheLoader.vue";
@@ -12,7 +12,7 @@ import {useIntegerFetch} from "@/composables/useIntegerFetch";
 
 
 const {response, error, execute, isLoading} = useIntegerFetch(),
-      options = reactive({num: 200, max: 12});
+    options = reactive({num: 200, max: 12});
 
 execute(options);
 
@@ -43,7 +43,7 @@ watch(error, async (newVal) => {
     isError.value = true;
   }
 
-  if(isError.value){
+  if (isError.value) {
     setTimeout(() => isError.value = false, 2000);
   }
 });
@@ -73,7 +73,9 @@ provide('apiOptions', options);
       <div class="flex flex-col  align-middle my-4 sm:justify-between sm:flex-row">
         <h2 class="text-center text-3xl py-5"> Histogram </h2>
         <div class="w-full text-center sm:text-right">
-          <button class="rounded-md w-32 h-12 p-3 bg-primary hover:bg-secondary text-white " @click="refreshResults">Refresh</button>
+          <button class="rounded-md w-32 h-12 p-3 bg-primary hover:bg-secondary text-white " @click="refreshResults">
+            Refresh
+          </button>
         </div>
       </div>
       <TheLoader v-if="isLoading"/>
@@ -84,7 +86,7 @@ provide('apiOptions', options);
     </section>
     <section>
       <div class="container mx-auto my-4 py-4">
-        <TheForm @submitForm="submitForm" />
+        <TheForm @submitForm="submitForm"/>
       </div>
     </section>
   </GeneralLayout>

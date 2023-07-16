@@ -3,16 +3,13 @@ export default {
         const request = url => {
             return new Promise(async (resolve, reject) => {
                 try {
-                    const apiUrl = import.meta.env.VITE_BASE_API_URL,
-                        fetchResponse = await fetch(apiUrl + url, {
-                            mode: 'cors',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            }
-                        }),
-                        responseData = await fetchResponse.text();
+                    const apiUrl = import.meta.env.VITE_BASE_API_URL, fetchResponse = await fetch(apiUrl + url, {
+                        mode: 'cors', headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    }), responseData = await fetchResponse.text();
 
-                    if(!fetchResponse.ok){
+                    if (!fetchResponse.ok) {
                         const exception = new Error();
                         exception.name = "ApiError";
 
@@ -25,13 +22,12 @@ export default {
                     }
 
                     resolve(responseData);
-                } catch(e){
+                } catch (e) {
                     const error = {
-                        status: 500,
-                        message: "An Application Error Occurred!"
+                        status: 500, message: "An Application Error Occurred!"
                     }
 
-                    if(e.name === "ApiError"){
+                    if (e.name === "ApiError") {
                         error.status = e.response.status;
                         error.message = e.response.message
                     }
