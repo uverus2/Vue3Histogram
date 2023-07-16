@@ -1,5 +1,8 @@
 <script setup>
-import {ref} from 'vue'
+import {ref, provide} from 'vue'
+
+//Components
+import TheHistogramLabel from "@/components/TheHistogramLabel.vue";
 
 const props = defineProps({
   column: {
@@ -24,12 +27,13 @@ function toggleLabel() {
   isLabelShown.value = !isLabelShown.value;
 }
 
+//Not best practice for 1 level of drilling, I am just trying it out.
+provide('column', props.column);
+
 </script>
 <template>
   <li class="self-end text-center bar">
-    <div v-if="isLabelShown" class="xs-250:bg-basic xs-250:rounded-lg mb-3">
-      {{ column }}
-    </div>
+    <TheHistogramLabel v-if="isLabelShown"/>
     <div :style="dynamicHeight"
          class="col-span-1 rounded-t-lg text-center flex flex-col justify-center hover:bg-basic hover:animate-pulse"
          :class="colour"
