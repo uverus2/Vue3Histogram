@@ -1,21 +1,15 @@
 <script setup>
-import {useForm, useIsSubmitting, useResetForm} from 'vee-validate';
-import * as yup from 'yup';
-
 //Components
 import InputField from "@/components/HistogramForm/InputField.vue";
 
-const emit = defineEmits(['submitForm']),
-    isSubmitting = useIsSubmitting(),
-    resetForm = useResetForm();
+//Schemas
+import histogramSchema from "@/validationSchemas/histogramForm";
 
-const {handleSubmit} = useForm({
-  validationSchema: yup.object({
-    max: yup.number().max(100).required(),
-    min: yup.number().min(0).required(),
-    num: yup.number().max(5000).required()
-  })
-});
+import {useForm} from 'vee-validate';
+const {handleSubmit, isSubmitting, resetForm} = useForm(histogramSchema);
+
+const emit = defineEmits(['submitForm']);
+
 
 const submitForm = handleSubmit(values => {
   const {max, min, num} = values,
