@@ -6,6 +6,7 @@ import TheLoader from "@/components/TheLoader.vue";
 import TheErrorAlert from "@/components/TheErrorAlert.vue";
 import TheHistogram from "@/components/Histogram/TheHistogram.vue";
 import TheForm from "@/components/HistogramForm/TheForm.vue";
+import TheDivider from "@/components/TheDivider.vue";
 
 import GeneralLayout from "@/layouts/GeneralLayout.vue";
 import {useIntegerFetch} from "@/composables/useIntegerFetch";
@@ -84,8 +85,10 @@ provide('apiOptions', options);
     <section>
       <TheHistogram v-if="checkIfResults" :data="histogramValues"/>
     </section>
+    <TheDivider />
     <section>
-      <div class="container mx-auto my-4 py-4">
+      <div class="container mx-auto my-5 py-4">
+        <h2 class="text-primary font-bold text-center mb-3 text-2xl">Change Histogram Values</h2>
         <TheForm @submitForm="submitForm"/>
       </div>
     </section>
