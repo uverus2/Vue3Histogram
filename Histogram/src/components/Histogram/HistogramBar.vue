@@ -3,6 +3,7 @@ import {computed, inject, provide, ref} from 'vue'
 
 //Components
 import TheHistogramLabel from "@/components/Histogram/TheHistogramLabel.vue";
+import {useApiOptions} from "@/stores/apiOptions";
 
 const props = defineProps({
   column: {
@@ -27,9 +28,11 @@ function scaleValue(value, numColumns, largestValue) {
   return (value / largestValue) * numColumns;
 }
 
-const apiOptions = inject('apiOptions'),
-    dynamicHeight = computed(() => `height: ${scaleValue(props.column, apiOptions?.max || 12, props.largestEntry)}rem`),
+const {options} = useApiOptions(),
+    dynamicHeight = computed(() => `height: ${scaleValue(props.column, options?.max || 12, props.largestEntry)}rem`),
     isLabelShown = ref(false);
+
+console.log("STORE OPTIONS", options)
 
 function toggleLabel() {
   isLabelShown.value = !isLabelShown.value;

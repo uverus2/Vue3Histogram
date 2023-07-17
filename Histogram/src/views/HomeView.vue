@@ -10,18 +10,16 @@ import TheDivider from "@/components/TheDivider.vue";
 
 import GeneralLayout from "@/layouts/GeneralLayout.vue";
 import {useIntegerFetch} from "@/composables/useIntegerFetch";
+import { useApiOptions } from "@/stores/apiOptions";
 
 
-const {response, error, execute, isLoading} = useIntegerFetch(),
-    options = reactive({num: 200, max: 12});
+const {response, error, execute, isLoading} = useIntegerFetch();
+const {options, populate, populateDefaults } = useApiOptions();
 
 execute(options);
 
 function refreshResults() {
-  options.max = 12;
-  options.min = 1;
-  options.num = 200;
-
+  populateDefaults();
   execute(options);
 }
 
@@ -55,16 +53,9 @@ const checkIfResults = computed(() => {
 });
 
 const submitForm = (formData) => {
-  const {max, min, num} = formData;
-
-  options.max = max;
-  options.min = min;
-  options.num = num;
-
+  populate(formData);
   execute(options);
 }
-
-provide('apiOptions', options);
 
 </script>
 

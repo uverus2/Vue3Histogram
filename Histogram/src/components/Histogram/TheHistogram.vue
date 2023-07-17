@@ -4,6 +4,7 @@ import {computed, inject, ref, watch} from 'vue'
 //Components
 import HistogramBar from "@/components/Histogram/HistogramBar.vue";
 import YAxis from "@/components/Histogram/YAxis.vue";
+import {useApiOptions} from "@/stores/apiOptions";
 
 const props = defineProps({
   data: {
@@ -47,10 +48,10 @@ const calculateYAxis = computed(() => {
   return axisValues.sort((a, b) => b - a);
 });
 
-const apiOptions = inject('apiOptions');
+const {options} = useApiOptions();
 
 const columnStyle = computed(() => {
-  return `grid-template-columns: repeat(${apiOptions?.max || 12}, minmax(0, 1fr))`;
+  return `grid-template-columns: repeat(${options?.max || 12}, minmax(0, 1fr))`;
 });
 
 </script>
