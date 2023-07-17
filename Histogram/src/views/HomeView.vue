@@ -1,5 +1,5 @@
 <script setup>
-import {computed, provide, reactive, ref, watch} from 'vue'
+import {computed, ref, watch} from 'vue'
 
 //Components
 import TheLoader from "@/components/TheLoader.vue";
