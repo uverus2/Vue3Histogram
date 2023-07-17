@@ -15,6 +15,8 @@ SASS/SCSS - It was used just in case custom styles were required. Ideally Tailwi
 Vee-Validate - Simple to use validation framework for Vue. It was not required for this particular due to its size task but if it grows in the future the framework is there to expand.
 Yup - Lightweight and easy to use schema validation. It pairs nicely with Vee-Validate 4 so its use was more for experimentation and education.
 Pinia Store - As a state store to ensure state can be carried down to multiple parts of the application without injecting or using props.
+Figma - For the favicon.
+VueRouter - Ensures the application can be extended further.
 
 ## Form Validation Rules
 
@@ -57,4 +59,5 @@ The scaling formula that was used was current value (bar value) divided by the l
 - Abstracting the reduce logic from the home view into a composable. 
 - Abstracting some of the functions into an "utilities" file. Functions which do not relate to the core logic of the components/view such as the getColour within the TheHistogram component.
 - Improving naming of certain variables/functions. 
+- Make the favicon into a logo which can be used as part of the header.
 
