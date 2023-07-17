@@ -6,8 +6,8 @@ import * as yup from 'yup';
 import InputField from "@/components/HistogramForm/InputField.vue";
 
 const emit = defineEmits(['submitForm']),
-      isSubmitting = useIsSubmitting(),
-      resetForm = useResetForm();
+    isSubmitting = useIsSubmitting(),
+    resetForm = useResetForm();
 
 const {handleSubmit} = useForm({
   validationSchema: yup.object({
@@ -19,11 +19,11 @@ const {handleSubmit} = useForm({
 
 const submitForm = handleSubmit(values => {
   const {max, min, num} = values,
-        formData = {
-          max: max || 0,
-          min: min || 0,
-          num: num || 200
-        };
+      formData = {
+        max: max || 0,
+        min: min || 0,
+        num: num || 200
+      };
 
   emit('submitForm', formData);
   resetForm();
