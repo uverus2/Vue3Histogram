@@ -1,51 +1,58 @@
 <script setup>
-import {reactive} from 'vue';
+import {useForm, useIsSubmitting, useResetForm} from 'vee-validate';
+import * as yup from 'yup';
 
-const emit = defineEmits(['submitForm'])
+//Components
+import InputField from "@/components/HistogramForm/InputField.vue";
 
-const formData = reactive({
-  max: 0,
-  min: 0,
-  num: 200
+const emit = defineEmits(['submitForm']),
+      isSubmitting = useIsSubmitting(),
+      resetForm = useResetForm();
+
+const {handleSubmit} = useForm({
+  validationSchema: yup.object({
+    max: yup.number().max(100).required(),
+    min: yup.number().min(0).required(),
+    num: yup.number().max(5000).required()
+  })
 });
 
-const submitForm = () => {
-  emit('submitForm', formData);
+const submitForm = handleSubmit(values => {
+  const {max, min, num} = values,
+        formData = {
+          max: max || 0,
+          min: min || 0,
+          num: num || 200
+        };
 
-  formData.max = 0;
-  formData.min = 0;
-  formData.num = 200;
-}
+  emit('submitForm', formData);
+  resetForm();
+});
 
 </script>
 <template>
-  <form @submit.prevent="submitForm">
+  <form @submit="submitForm">
     <label class="block">
       <span class="block text-sm font-medium text-slate-700">Max Columns</span>
 
-      <input v-model="formData.max"
-             class="mt-1 block w-full px-3 py-2 bg-white border border-basic rounded-md text-sm shadow-sm"
-             type="number"
-      />
+      <InputField name="max" placeholder="0" type="number"/>
+
     </label>
     <label class="block">
       <span class="block text-sm font-medium text-slate-700">Min Columns</span>
 
-      <input v-model="formData.min"
-             class="mt-1 block w-full px-3 py-2 bg-white border border-basic rounded-md text-sm shadow-sm"
-             type="number"
-      />
+      <InputField name="min" placeholder="0" type="number"/>
     </label>
     <label class="block">
       <span class="block text-sm font-medium text-slate-700">Number of Numbers</span>
 
-      <input v-model="formData.num"
-             class="mt-1 block w-full px-3 py-2 bg-white border border-basic rounded-md text-sm shadow-sm"
-             type="number"
-      />
+      <InputField name="num" placeholder="200" type="number"/>
     </label>
     <div class="w-full text-center mt-3">
-      <button class="rounded p-3 w-32 h-12 bg-primary text-white hover:bg-secondary" type="submit">Click</button>
+      <button :class="{'disabled' : isSubmitting}" :disabled="isSubmitting"
+              class="rounded p-3 w-32 h-12 bg-primary text-white hover:bg-secondary" type="submit">
+        Click
+      </button>
     </div>
   </form>
 </template>

@@ -2,3 +2,11 @@ $primary: #A74048;
 $secondary: #8ABC8A;
 $third: #4C7F66;
 $basic: #97CBAE;
+
+button {
+  &.disabled{
+    opacity: 0.7;
+    background: $basic;
+    cursor: unset;
+  }
+}
