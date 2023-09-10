@@ -1,5 +1,7 @@
 # My Vue 3 Histogram 
 
+Simple Vue 3 Histogram learning app. An API was used to generate random figures and Vue 3 and Tailwind Css were used to create the Histogram chart. 
+
 ## Installation & Running
 
 - Step 1 ```cd Histogram```

@@ -1,4 +1,0 @@
-* There are three main parts to this question: fetching the data, manipulating the data (i.e. into a format that can be visualized as a histogram), and drawing the histogram. Start by considering at a high-level how each of these will work.
-* After fetching the data, you should have an array of numbers. Think about what format you need the data to be in to make it easier to draw the chart.
-* Consider using reduce to convert your list of numbers to an object of `{ number: frequency of that number }`.
-* How are you going to draw the chart? If you decide to use plain HTML with some styling, think about what the HTML structure will look like (e.g. how will you draw the axis, how will you dynamically size the bars, etc).
